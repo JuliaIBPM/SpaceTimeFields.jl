@@ -5,7 +5,6 @@ abstract type Abstract1DProfile end
 
 using ForwardDiff
 
-export EldredgeRamp, ColoniusRamp, Sinusoid, Gaussian
 
 
 """

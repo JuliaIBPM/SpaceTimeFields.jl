@@ -2,6 +2,7 @@
 
 abstract type AbstractSpatialField end
 
+
 ## Empty spatial field
 
 """
