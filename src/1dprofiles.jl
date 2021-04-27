@@ -5,7 +5,7 @@ abstract type Abstract1DProfile end
 
 using ForwardDiff
 
-
+import Base: >>, <<
 
 """
     ConstantProfile(c::Number)
@@ -175,8 +175,11 @@ julia> (s << 0.5).([0.0, 0.5, 0.75])
  -0.707107
 ```
 """
-p::Abstract1DProfile >> Δt::Number = ShiftedProfile(Δt, p)
-p::Abstract1DProfile << Δt::Number = ShiftedProfile(-Δt, p)
+>>(p::Abstract1DProfile,Δt::Number) = ShiftedProfile(Δt, p)
+<<(p::Abstract1DProfile,Δt::Number) = ShiftedProfile(-Δt, p)
+
+#p::Abstract1DProfile >> Δt::Number = ShiftedProfile(Δt, p)
+#p::Abstract1DProfile << Δt::Number = ShiftedProfile(-Δt, p)
 
 struct AddedProfiles{T <: Tuple} <: Abstract1DProfile
     ps::T
