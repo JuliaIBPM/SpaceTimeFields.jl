@@ -293,11 +293,10 @@ end
 ## Functional forms of profiles
 
 """
-    Gaussian(σ,x0,A)
+    Gaussian(σ,A)
 
-Construct a 1-d Gaussian function centered at `x0` with standard deviation `σ`
-and amplitude `A`. The resulting function can be evaluated at any real-valued
-number.
+Construct a 1-d Gaussian function with standard deviation `σ` and amplitude `A`. 
+The resulting function can be evaluated at any real-valued number.
 
 # Example
 
