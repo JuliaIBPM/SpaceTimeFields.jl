@@ -75,10 +75,10 @@ derivative of a Gaussian in that direction (`x` or `y`, respectively).
 """ SpatialGaussian(::AbstractMatrix,::Vector,::Real)
 
 """
-    SpatialGaussian(σ::Vector,x0::Real,y0::Real,α::Real,A::Real[,derivdir=0])
+    SpatialGaussian(σ2::Vector,x0::Real,y0::Real,α::Real,A::Real[,derivdir=0])
 
 Set up a spatial field in the form of a Gaussian centered at `x0,y0` with
-variances `σ[1],σ[2]` along the orthoogonal eigendirections, which are rotated by `α`
+variances `σ2[1],σ2[2]` along the orthogonal eigendirections, which are rotated by `α`
 with respect to the coordinate system; and amplitude `A`. If the
 optional parameter `deriv` is set to 1 or 2, then it returns the first
 derivative of a Gaussian in that direction (`x` or `y`, respectively).
@@ -169,13 +169,6 @@ end
 (g::SpatialGaussian{false,N})(x,y,t) where {N} = g(x,y)
 (g::SpatialGaussian{true,N})(x,y,t) where {N} = g(x-g.u[1]*t,y-g.u[2]*t)
 
-function (g::SpatialGaussian{C,N})(x,y) where {C,N}
-    @unpack x0, Σinv, fact = g
-    xv = SVector{2}(x,y)
-    dx = xv-x0
-    dfact = -Σinv*dx
-    return _spatialgaussian(fact,dx,Σinv)*dfact[N]
-end
 
 _spatialgaussian(fact::Real,x::SVector,Σinv::SMatrix) = fact*exp(-0.5*x'*Σinv*x)
 
