@@ -6,15 +6,17 @@ version = "0.2.0"
 [deps]
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+PolyLog = "85e3b03c-9856-11eb-0374-4dc1f8670e7f"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 UnPack = "3a884ed6-31ef-47d7-9d2a-63182c4928ed"
 
 [compat]
 ForwardDiff = "0.10"
+LinearAlgebra = "1.6"
+PolyLog = "2.4"
 StaticArrays = "1.5, 1.6"
 UnPack = "1.0"
 julia = "1.6"
-LinearAlgebra = "1.6"
 
 [extras]
 Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"

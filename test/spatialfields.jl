@@ -1,3 +1,5 @@
+using Random
+
 @testset "Profiles" begin
 
 σ = rand()
@@ -12,6 +14,13 @@ A = 1
 dg = DGaussian(σ,A)
 x = 0.1
 @test dg(x) == -2*A*x/sqrt(π)/σ^3*exp(-x^2/σ^2)
+
+a = 11
+g = EldredgeRamp(a)
+f = EldredgeRampIntegral(a)
+g2 = d_dt(f)
+x = rand()
+@test g2(x) ≈ g(x)
 
 end
 
