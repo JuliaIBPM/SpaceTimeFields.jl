@@ -7,6 +7,10 @@ using ForwardDiff
 
 import Base: >>, <<
 
+import ForwardDiff: Dual, partials, value
+
+PolyLog.reli2(d::Dual{T}) where {T} = Dual{T}(reli2(value(d)), -log(1.0-value(d))/value(d) * partials(d))
+
 """
     ConstantProfile(c::Number)
 
@@ -335,8 +339,15 @@ show(io::IO, s::Sinusoid) = print(io, "Sinusoid (ω = $(round(s.ω, digits=2)))"
 struct EldredgeRamp <: Abstract1DProfile
     aₛ::Float64
 end
-(r::EldredgeRamp)(t) = 0.5(log(2cosh(r.aₛ*t)) + r.aₛ*t)/r.aₛ
+(r::EldredgeRamp)(t) = 0.5(log(2cosh(r.aₛ*t))/r.aₛ + t)
 show(io::IO, r::EldredgeRamp) = print(io, "logcosh ramp (aₛ = $(round(r.aₛ, digits=2)))")
+
+struct EldredgeRampIntegral <: Abstract1DProfile
+    aₛ:: Float64
+end
+(r::EldredgeRampIntegral)(t) = 0.25(reli2(-exp(-2r.aₛ*t))/r.aₛ^2 + 2t^2)
+show(io::IO, r::EldredgeRampIntegral) = print(io, "integral of logcosh ramp (aₛ = $(round(r.aₛ, digits=2)))")
+
 
 struct ColoniusRamp <: Abstract1DProfile
     n::Int
