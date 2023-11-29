@@ -9,7 +9,7 @@ import Base: >>, <<
 
 import ForwardDiff: Dual, partials, value
 
-log2cosh(t::Real) = abs(t) < 100 ? log(2cosh(t)) : abs(t)
+log2cosh(t::Real) = abs(t) < 100 ? log(2.0*cosh(t)) : abs(t)
 log2cosh(d::Dual{T}) where {T} = Dual{T}(log2cosh(value(d)), tanh(value(d)) * partials(d))
 reli2exp(t::Real) = PolyLog.reli2(-exp(-2t))
 reli2exp(d::Dual{T}) where {T} = Dual{T}(reli2exp(value(d)), 2(log2cosh(value(d))-value(d)) * partials(d))
