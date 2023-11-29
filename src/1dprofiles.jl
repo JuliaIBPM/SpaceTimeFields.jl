@@ -9,6 +9,10 @@ import Base: >>, <<
 
 import ForwardDiff: Dual, partials, value
 
+log2cosh(t::Real) = abs(t) < 100 ? log(2.0*cosh(t)) : abs(t)
+log2cosh(d::Dual{T}) where {T} = Dual{T}(log2cosh(value(d)), tanh(value(d)) * partials(d))
+reli2exp(t::Real) = PolyLog.reli2(-exp(-2t))
+reli2exp(d::Dual{T}) where {T} = Dual{T}(reli2exp(value(d)), 2(log2cosh(value(d))-value(d)) * partials(d))
 PolyLog.reli2(d::Dual{T}) where {T} = Dual{T}(reli2(value(d)), -log(1.0-value(d))/value(d) * partials(d))
 
 """
@@ -339,13 +343,16 @@ show(io::IO, s::Sinusoid) = print(io, "Sinusoid (ω = $(round(s.ω, digits=2)))"
 struct EldredgeRamp <: Abstract1DProfile
     aₛ::Float64
 end
-(r::EldredgeRamp)(t) = 0.5(log(2cosh(r.aₛ*t))/r.aₛ + t)
+#(r::EldredgeRamp)(t) = 0.5(log(2cosh(r.aₛ*t))/r.aₛ + t)
+(r::EldredgeRamp)(t) = 0.5(log2cosh(r.aₛ*t)/r.aₛ + t)
 show(io::IO, r::EldredgeRamp) = print(io, "logcosh ramp (aₛ = $(round(r.aₛ, digits=2)))")
 
 struct EldredgeRampIntegral <: Abstract1DProfile
     aₛ:: Float64
 end
-(r::EldredgeRampIntegral)(t) = 0.25(reli2(-exp(-2r.aₛ*t))/r.aₛ^2 + 2t^2)
+#(r::EldredgeRampIntegral)(t) = 0.25(reli2(-exp(-2r.aₛ*t))/r.aₛ^2 + 2t^2)
+(r::EldredgeRampIntegral)(t) = 0.25(reli2exp(r.aₛ*t)/r.aₛ^2 + 2t^2)
+
 show(io::IO, r::EldredgeRampIntegral) = print(io, "integral of logcosh ramp (aₛ = $(round(r.aₛ, digits=2)))")
 
 
