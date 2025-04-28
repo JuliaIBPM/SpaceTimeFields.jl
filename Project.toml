@@ -11,7 +11,7 @@ StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 UnPack = "3a884ed6-31ef-47d7-9d2a-63182c4928ed"
 
 [compat]
-ForwardDiff = "0.10"
+ForwardDiff = "0.10, 1"
 LinearAlgebra = "1.6"
 PolyLog = "2.4"
 StaticArrays = "1.5, 1.6"
