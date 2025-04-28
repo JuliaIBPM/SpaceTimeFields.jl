@@ -1,7 +1,7 @@
 name = "SpaceTimeFields"
 uuid = "0af78db0-3b7c-4df8-88bd-686b7cc5245d"
 authors = ["Jeff Eldredge <jdeldre@g.ucla.edu>"]
-version = "0.2.3"
+version = "0.2.4"
 
 [deps]
 ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
