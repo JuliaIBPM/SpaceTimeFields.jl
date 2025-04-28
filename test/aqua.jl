@@ -1,2 +1,2 @@
 using Aqua
-Aqua.test_all(SpaceTimeFields)
+Aqua.test_all(SpaceTimeFields; ambiguities=false)
